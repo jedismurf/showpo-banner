@@ -1,0 +1,16 @@
+.banner-container {
+    background: url(https://executiveponies.com/media/wysiwyg/home/tees.jpg);
+    background-color: #eec9d2;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 120px;
+    padding-top: 20px;
+}
+
+.banner-title {
+    background: #ffffff;
+    padding: 10px 20px;
+    margin: 0 0 0 90px;
+    width: auto;
+    display: inline-block;
+}
