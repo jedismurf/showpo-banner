@@ -1,22 +1,23 @@
-.banner-container {
+#banner-top .banner-container {
     background: url(https://executiveponies.com/media/wysiwyg/home/tees.jpg);
     background-color: #eec9d2;
     background-size: contain;
     background-repeat: no-repeat;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 30px;
+    padding-bottom: 10px;
 }
 
-.banner-title {
+#banner-top h2.banner-title {
     background: #ffffff;
     padding: 10px 20px;
-    margin: 0 0 0 90px;
+    margin: 0 0 0 70px;
     width: auto;
     display: inline-block;
+    font-size: 1.5rem;
 }
 
 @media only screen and (max-width: 40em) {
-    h2.banner-title {
+    #banner-top h2.banner-title {
         font-size: 1.6rem;
     }
 }
