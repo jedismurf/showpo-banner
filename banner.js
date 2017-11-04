@@ -1,8 +1,19 @@
 jQuery(function($){
+    
+    //    alert("loaded");
+    
+    // FOR LIVE VERSION (Uncomment when live)
 
-//    alert("loaded");
+    // var bannerModelObject;
 
-    /* JSON Datasource */
+    // $.getJSON('banner.json', function(data) {
+    //     bannerModelObject = data;
+    // });
+
+    // END - FOR LIVE VERSION
+
+    // JSON Datasource - Testing Purposes (Comment or remove when live)
+    
     var bannerJSON = `[
         {
           "Title" : "Shop Tees",
@@ -20,48 +31,52 @@ jQuery(function($){
         }
       ]`;
 
+    var bannerModelObject = JSON.parse(bannerJSON);
+    
+    // END - JSON Datasource - Testing Purposes
+
     var bannerActive = false;
     var currentBanner;
 
     setInterval(function(){
-        var currentTime = new Date();
+        if(bannerModelObject){
+            var currentTime = new Date();
 
-        var bannerObject = JSON.parse(bannerJSON);
+            // Check if a banner is active and if its time has expired
+            if(currentBanner){
+                var currentBannerStartTime = new Date(currentBanner["Start"]);
+                var currentBannerEndTime = new Date(currentBanner["End"]);
 
-        // Check if a banner is active and if its time has expired
-        if(currentBanner){
-            var currentBannerStartTime = new Date(currentBanner["Start"]);
-            var currentBannerEndTime = new Date(currentBanner["End"]);
-
-            if(bannerActive){
-                if((currentTime < currentBannerStartTime) || (currentTime > currentBannerEndTime)) {
-                    // No longer display banner
-                    $('#banner-top').hide();
-                    bannerActive = false;
-                } 
-            }
-        } 
-
-        // Search through banners to see if there is a banner that needs to be displayed
-        if(!bannerActive){
-            bannerObject.forEach(function(banner) {
-
-                var bannerStartTime = new Date(banner["Start"]);
-                var bannerEndTime = new Date(banner["End"]);
-    
-                if((currentTime > bannerStartTime) && (currentTime < bannerEndTime)) {
-                    currentBanner = banner;
-                    bannerActive = true;
-
-                    // Display Current Banner
-                    $('#banner-top').show();
-                    $('#banner-top').attr('href', currentBanner["URL"]);
-                    $('#banner-top .banner-container').css({"background": "url(" + currentBanner["Image"] + ") #eec9d2", "background-size": "contain", "background-repeat": "no-repeat"});
-                    $('#banner-top .banner-title').text(currentBanner["Title"]);
-
-                    return;
+                if(bannerActive){
+                    if((currentTime < currentBannerStartTime) || (currentTime > currentBannerEndTime)) {
+                        // No longer display banner
+                        $('#banner-top').hide();
+                        bannerActive = false;
+                    } 
                 }
-            }, this);
+            } 
+
+            // Search through banners to see if there is a banner that needs to be displayed
+            if(!bannerActive){
+                bannerModelObject.forEach(function(bannerData) {
+
+                    var bannerStartTime = new Date(bannerData["Start"]);
+                    var bannerEndTime = new Date(bannerData["End"]);
+        
+                    if((currentTime > bannerStartTime) && (currentTime < bannerEndTime)) {
+                        currentBanner = bannerData;
+                        bannerActive = true;
+
+                        // Display Current Banner
+                        $('#banner-top').show();
+                        $('#banner-top').attr('href', currentBanner["URL"]);
+                        $('#banner-top .banner-container').css({"background": "url(" + currentBanner["Image"] + ") #eec9d2", "background-size": "contain", "background-repeat": "no-repeat"});
+                        $('#banner-top .banner-title').text(currentBanner["Title"]);
+
+                        return;
+                    }
+                }, this);
+            }
         }
     }, 1000);
 });
