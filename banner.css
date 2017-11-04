@@ -1,6 +1,9 @@
+#banner-top {
+    display: none;
+}
+
 #banner-top .banner-container {
-    background: url(https://executiveponies.com/media/wysiwyg/home/tees.jpg);
-    background-color: #eec9d2;
+    background: url(https://executiveponies.com/media/wysiwyg/home/tees.jpg) #eec9d2;
     background-size: contain;
     background-repeat: no-repeat;
     padding-top: 30px;
